@@ -3,12 +3,12 @@
 var	movies = require('../../app/controllers/movies');
 
 module.exports = function(app) {
-	app.route('/articles')
+	app.route('/movies')
 		.get(movies.movies);
 
 	app.route('/movies/:movieId')
 		.get(movies.movie);
 
-	app.param('articleId', movies.movie);
+	app.param('movieId', movies.movie);
 };
 

@@ -1,8 +1,5 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
 var express = require('express');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
@@ -16,6 +13,7 @@ var path = require('path');
 var sessionMiddleware = require('./middlewares/session');
 var config = require('./config');
 var winston = require('./winston');
+
 
 module.exports = function(app, passport) {
 

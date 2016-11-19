@@ -6,11 +6,6 @@
 var express = require('express');
 var fs = require('fs');
 
-/**
- * Main application entry file.
- * Please note that the order of loading is important.
- */
-
 // Load Configurations
 var config = require('./config/config');
 var winston = require('./config/winston');

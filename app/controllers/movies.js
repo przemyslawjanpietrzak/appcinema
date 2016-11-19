@@ -12,16 +12,31 @@ exports.movie = function(req, res, next, id) {
 			return next(new Error(`Movie doesn't exist` + id));
 		} else {
 			req.movie = movie;
-			return next();
+			return res.jsonp(movie);
 		}
-	}).catch(function(err){
-		return next(err);
 	});
 };
 
-exports.movies = function(req, res, next) {
-	var movies = db.Movie.findAll({});
-	return res.jsonp(movies);
+exports.movies = function(req, res) {
+	// db.Movie.create({
+	// 	title: 'BatMan1',
+	// 	type: 'comedy'
+	// }).then(function (movie) {
+	// 	movie.save();
+	// });
+
+
+	db.Movie.findAll({
+		attributes: {
+			include: ['title', 'type']
+		},
+		// where: {
+		// 	title: req.params.title,
+		// 	type: req.params.title
+		// }
+	}).then(function (movies) {
+		return res.jsonp(movies);
+	});
 };
 
 exports.hasAuthorization = function(req, res, next) {

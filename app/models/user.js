@@ -1,10 +1,8 @@
 'use strict';
 
-/**
-	* User Model
-	*/
 
 var crypto = require('crypto');
+
 
 module.exports = function(sequelize, DataTypes) {
 
@@ -17,10 +15,6 @@ module.exports = function(sequelize, DataTypes) {
 			provider: DataTypes.STRING,
 			salt: DataTypes.STRING, 
 			facebookUserId: DataTypes.INTEGER,
-			twitterUserId: DataTypes.INTEGER,
-			twitterKey: DataTypes.STRING,
-			twitterSecret: DataTypes.STRING,
-			github: DataTypes.STRING,
 			openId: DataTypes.STRING
 		},
 		{
@@ -46,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			},
 			associate: function(models) {
-				User.hasMany(models.Article);
+				User.hasMany(models.Ticket);
 			}
 		}
 	);
