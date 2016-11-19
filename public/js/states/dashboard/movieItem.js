@@ -13,7 +13,7 @@ angular
 		$scope.submitTicketFrom = function (reducedTicketsCount, unreducedTicketsCount) {
 			stateService.setMovie(movieId);
 			stateService.setTicketsCount(reducedTicketsCount, unreducedTicketsCount);
-			$state.go('dashboard.plan');
+			$state.go('dashboard.cinemaPlan');
 		}
 	})
 	.config(function ($stateProvider) {

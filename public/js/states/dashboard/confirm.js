@@ -1,12 +1,16 @@
 angular
 	.module('dashboard.confirm.module', [])
-	.controller('dashboard.confirm.module', function ($scope, stateService) {
+	.controller('dashboard.confirm.controller', function ($scope, $state, stateService) {
 		var ticketsCount = stateService.getTicketsCount();
 
-		$scope.reducedTicketsCount = ticketsCount.reducedTicketsCount();
-		$scope.unreducedTicketsCount = ticketsCount.unreducedTicketsCount();
+		$scope.reducedTicketsCount = ticketsCount.reducedTicketsCount;
+		$scope.unreducedTicketsCount = ticketsCount.unreducedTicketsCount;
 		$scope.places = stateService.getPlaces();
 		$scope.movie = stateService.getMovie();
+
+		$scope.confirm = function () {
+			$state.go('dashboard.movieList');
+		}
 	})
 	.config(function ($stateProvider) {
 	$stateProvider
@@ -26,7 +30,7 @@ angular
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="movie in movies track by $index" ui-sref="dashboard.movieItem({ movieId: movie.id })">
+								<tr>
 									<th>{{ movie.title }}</th>
 									<th>{{ movie.is3D ? 'yes' : 'no' }}</th>
 									<th>{{ movie.type }}</th>
@@ -45,7 +49,7 @@ angular
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="movie in movies track by $index" ui-sref="dashboard.movieItem({ movieId: movie.id })">
+								<tr>
 									<th>{{ reducedTicketsCount }}</th>
 									<th>{{ unreducedTicketsCount }}</th>
 									<th>{{ places }}</th>
@@ -53,6 +57,7 @@ angular
 							</tbody>
 					  </table>
 					</div>
+					<button class="btn btn-success" ng-click="confirm()">Confirm</button>
 				</div>
 			`
 		})

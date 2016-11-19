@@ -1,7 +1,7 @@
 angular
-	.module('dashboard', ['dashboard.state.service', 'dashboard.movieList', 'dashboard.movieItem', 'dashboard.cinemaPlan'])
+	.module('dashboard', ['dashboard.state.service', 'dashboard.movieList', 'dashboard.movieItem', 'dashboard.cinemaPlan', 'dashboard.confirm.module'])
 	.controller('dashboard.controller', function () {
-		
+
 	})
 	.config(function ($stateProvider) {
 		$stateProvider

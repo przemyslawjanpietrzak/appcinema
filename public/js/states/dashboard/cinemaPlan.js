@@ -1,6 +1,6 @@
 angular
 	.module('dashboard.cinemaPlan', [])
-	.controller('dashboard.cinemaPlan.controller', function ($scope, _, stateService) {
+	.controller('dashboard.cinemaPlan.controller', function ($scope, $state,  _, stateService) {
 		var selectedPlaces = [];
 
 		$scope.rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -28,11 +28,11 @@ angular
 		};
 
 		$scope.disabledButton = function(col, row) {
-			return plan[col][row] === 'bought' || (ticketLeftCount === 0 && plan[col][row] === 'free')
+			return plan[col][row] === 'bought' || ($scope.ticketLeftCount === 0 && plan[col][row] === 'free')
 		};
 
 		$scope.goNext = function () {
-			stateService.setSelectedPlaces(selectedPlaces);
+			stateService.setPlaces(selectedPlaces);
 			$state.go('dashboard.confirm');
 		};
 
@@ -46,7 +46,7 @@ angular
 				template: `
 					<div>
 						<span>ticketLeftCount = {{ ticketLeftCount }}</span>
-						<button class="btn-info" ng-show="ticketLeftCount === 0">Next</button>
+						<button class="btn-info" ng-show="ticketLeftCount === 0" ng-click="goNext()">Next</button>
 					  <div class="row" ng-repeat="col in cols track by $index">
 					  	<div class="col-md-1" ng-repeat="row in rows track by $index">
 					  		<button
