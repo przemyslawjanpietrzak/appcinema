@@ -1,51 +1,55 @@
-
 angular
 	.module('dashboard.state.service', [])
 	.service('stateService', function () {
-		var state = {
-			user: null,
-			movie: null,
-			unreducedTicketsCount: 0,
-			reducedTicketsCount: 0,
-			places: [],
-			selectedPlaces: [],
-			isReservationConfirm: false,
-		};
-
-		return {
-			getUser: function () {
-				return state.user;
-			},
-			setUser: function (user) {
-				return state.user = user;
-			},
-
-			getMovie: function () {
-				return state.movie;
-			},
-			setMovie: function (movie) {
-				return state.movie = movie;
-			},
-
-			getTicketsCount: function () {
-				return state.unreducedTicketsCount + state.unreducedTicketsCount;
-			},
-			setTicketsCount: function (reducedTicketsCount, unreducedTicketsCount) {
-				state.unreducedTicketsCount = unreducedTicketsCount;
-				state.reducedTicketsCount = reducedTicketsCount;
-
+			var getInitalState = function () {
 				return {
-					unreducedTicketsCount: state.unreducedTicketsCount,
-					unreducedTicketsCount: state.unreducedTicketsCount
+					user: null,
+					movie: null,
+					unreducedTicketsCount: 0,
+					reducedTicketsCount: 0,
+					places: [],
+					selectedPlaces: [],
+					isReservationConfirm: false
 				};
-			},
+			};
 
-			getPlaces: function () {
-				return state.places;
-			},
-			setPlaces: function (places) {
-				state.places = places;
+			var state = getInitalState();
+
+			return {
+				getUser: function () {
+					return state.user;
+				},
+				setUser: function (user) {
+					return state.user = user;
+				},
+
+				getMovie: function () {
+					return state.movie;
+				},
+				setMovie: function (movie) {
+					return state.movie = movie;
+				},
+
+				getUnreducedTicketsCount: function () {
+					return state.unreducedTicketsCount;
+				},
+				getReducedTicketsCount: function () {
+					return state.reducedTicketsCount;
+				},
+				setTicketsCount: function (reducedTicketsCount, unreducedTicketsCount) {
+					state.unreducedTicketsCount = unreducedTicketsCount;
+					state.reducedTicketsCount = reducedTicketsCount;
+				},
+
+				getPlaces: function () {
+					return state.places;
+				},
+				setPlaces: function (places) {
+					state.places = places;
+				},
+
+				reset: function () {
+					state = getInitalState();
+				}
 			}
-
-		}
-	});
+		});

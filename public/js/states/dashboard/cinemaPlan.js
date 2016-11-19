@@ -5,7 +5,7 @@ angular
 
 		$scope.rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 		$scope.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
-		$scope.ticketLeftCount = stateService.getTicketsCount();
+		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
 
 		var plan = {};
 		_.forEach($scope.cols, function (col) {
@@ -38,7 +38,7 @@ angular
 
 		$scope.plan = plan;
 	})
-	.config(function ($stateProvider) {0
+	.config(function ($stateProvider) {
 		$stateProvider
 			.state('dashboard.cinemaPlan', {
 				url: '/cinemaPlan',

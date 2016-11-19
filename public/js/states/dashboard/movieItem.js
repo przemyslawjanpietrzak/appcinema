@@ -3,12 +3,9 @@ angular
 	.controller('dashboard.movieItem.controller', function ($scope, $http, $state, stateService) {
 		var movieId = $state.params.movieId;
 
-		$http({
-			method: 'get',
-			url: 'movies/' +  movieId,
-		}).then(function (response) {
-			$scope.movie = response.data;
-		});
+		$scope.movie = stateService.getMovie();
+		$scope.reducedTicketsCount = stateService.getReducedTicketsCount();
+		$scope.unreducedTicketsCount = stateService.getUnreducedTicketsCount();
 
 		$scope.submitTicketFrom = function (reducedTicketsCount, unreducedTicketsCount) {
 			stateService.setMovie(movieId);
@@ -32,13 +29,13 @@ angular
 					    		<div class="col-md-6">
 					    			<div class="input-group input-group-lg">
                       <label for="">reduced tickets count</label>
-										  <input type="number" class="form-control" ng-model="reducedTicketsCount">
+										  <input type="number" class="form-control" min="0" ng-model="reducedTicketsCount">
 										</div>
 									</div>
 					    		<div class="col-md-6">
 					    			<div class="input-group input-group-lg">
 					    				<label for="">unreduced tickets count</label>
-									 		<input type="number" class="form-control" ng-model="unreducedTicketsCount">
+									 		<input type="number" class="form-control" min="0" ng-model="unreducedTicketsCount">
 										</div>
 									</div>
 									<div class="row">

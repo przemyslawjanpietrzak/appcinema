@@ -1,14 +1,14 @@
 angular
 	.module('dashboard.confirm.module', [])
 	.controller('dashboard.confirm.controller', function ($scope, $state, stateService) {
-		var ticketsCount = stateService.getTicketsCount();
-
-		$scope.reducedTicketsCount = ticketsCount.reducedTicketsCount;
-		$scope.unreducedTicketsCount = ticketsCount.unreducedTicketsCount;
+		
+		$scope.reducedTicketsCount = stateService.getUnreducedTicketsCount();
+		$scope.unreducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.places = stateService.getPlaces();
 		$scope.movie = stateService.getMovie();
 
 		$scope.confirm = function () {
+			stateService.reset();
 			$state.go('dashboard.movieList');
 		}
 	})
