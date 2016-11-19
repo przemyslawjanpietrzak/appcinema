@@ -5,7 +5,7 @@ angular
 		$scope.reducedTicketsCount = stateService.getUnreducedTicketsCount();
 		$scope.unreducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.places = stateService.getPlaces();
-		$scope.movie = stateService.getMovie();
+		$scope.movies = [stateService.getMovie()];
 
 		$scope.confirm = function () {
 			stateService.reset();
@@ -20,24 +20,7 @@ angular
 			template: `
 				<div class="row">
 					<div>
-						<table class="table">
-					    <thead>
-						    <tr>
-						    	<th>Title</th>
-						      <th>3D</th>
-						      <th>Type</th>
-						      <th>Helper</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>{{ movie.title }}</th>
-									<th>{{ movie.is3D ? 'yes' : 'no' }}</th>
-									<th>{{ movie.type }}</th>
-									<th>{{ movie.helper }}</th>
-								</tr>
-							</tbody>
-					  </table>
+						<movies movies="movies"></movies>
 					</div>
 					<div>
 						<table class="table">

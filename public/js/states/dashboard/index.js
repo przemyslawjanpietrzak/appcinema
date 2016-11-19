@@ -1,5 +1,14 @@
 angular
-	.module('dashboard', ['dashboard.state.service', 'dashboard.movieList', 'dashboard.movieItem', 'dashboard.cinemaPlan', 'dashboard.confirm.module'])
+	.module('dashboard', [
+		'dashboard.state.service',
+		
+		'dashboard.moviesComponent.module',
+
+		'dashboard.movieList',
+		'dashboard.movieItem',
+		'dashboard.cinemaPlan',
+		'dashboard.confirm.module'
+	])
 	.controller('dashboard.controller', function () {
 
 	})
