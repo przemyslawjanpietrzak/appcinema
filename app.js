@@ -3,8 +3,8 @@
 /**
  * Module dependencies.
  */
-var express     = require('express');
-var fs          = require('fs');
+var express = require('express');
+var fs = require('fs');
 
 /**
  * Main application entry file.
@@ -12,15 +12,15 @@ var fs          = require('fs');
  */
 
 // Load Configurations
-var config          = require('./config/config');
-var winston         = require('./config/winston');
+var config = require('./config/config');
+var winston = require('./config/winston');
 
-winston.info('Starting '+config.app.name+'...');
-winston.info('Config loaded: '+config.NODE_ENV);
-winston.debug('Accepted Config:',config);
+winston.info('Starting ' + config.app.name + '...');
+winston.info('Config loaded: ' + config.NODE_ENV);
+winston.debug('Accepted Config:', config);
 
-var db              = require('./config/sequelize');
-var passport        = require('./config/passport');
+var db = require('./config/sequelize');
+var passport = require('./config/passport');
 
 var app = express();
 
