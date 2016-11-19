@@ -28,10 +28,7 @@ angular
 			},
 
 			getTicketsCount: function () {
-				return {
-					unreducedTicketsCount: state.unreducedTicketsCount,
-					unreducedTicketsCount: state.unreducedTicketsCount
-				};
+				return state.unreducedTicketsCount + state.unreducedTicketsCount;
 			},
 			setTicketsCount: function (reducedTicketsCount, unreducedTicketsCount) {
 				state.unreducedTicketsCount = unreducedTicketsCount;

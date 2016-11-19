@@ -5,7 +5,7 @@ angular
 
 		$scope.rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 		$scope.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
-		$scope.ticketLeftCount = 4; // TODO
+		$scope.ticketLeftCount = stateService.getTicketsCount();
 
 		var plan = {};
 		_.forEach($scope.cols, function (col) {
