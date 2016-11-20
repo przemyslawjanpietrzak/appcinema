@@ -179,13 +179,25 @@ module.exports = function (grunt) {
 						expand: true
 					},
 					{
+						cwd: 'bower_components/socket.io-client',
+						src: ['socket.io.min.js'],
+						dest: 'public/lib/socketio',
+						expand: true
+					},
+					{
+						cwd: 'bower_components/angular-socket-io',
+						src: ['socket.js'],
+						dest: 'public/lib/angular-socket-io',
+						expand: true
+					},
+					{
 						cwd: 'bower_components/angular-ui-utils/modules/validate',
 						src: ['**/*.js'],
 						dest: 'public/lib/angular-ui-utils/modules/validate',
 						expand: true
 					},
 					{cwd: 'bower_components/bootstrap/js', src: ['*.js'], dest: 'public/lib/bootstrap/js', expand: true},
-					{cwd: 'bower_components/bootstrap/less', src: ['*.less'], dest: 'public/lib/bootstrap/less', expand: true},
+
 					{
 						cwd: 'bower_components/bootstrap/dist/css',
 						src: ['*.*'],

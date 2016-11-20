@@ -9,8 +9,17 @@ angular
 		'dashboard.cinemaPlan',
 		'dashboard.confirm.module'
 	])
-	.controller('dashboard.controller', function () {
+	.factory('mySocket', function (socketFactory) {
+		var myIoSocket = io.connect('/');
 
+		var mySocket = socketFactory({
+			ioSocket: myIoSocket
+		});
+
+		return mySocket;
+	})
+	.controller('dashboard.controller', function (mySocket) {
+		mySocket.emit('xxx', { data: 1});
 	})
 	.config(function ($stateProvider) {
 		$stateProvider

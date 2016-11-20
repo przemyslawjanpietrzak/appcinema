@@ -28,7 +28,7 @@ function generateMovies() {
 
 
 var rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-var cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
+var cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 function generatePlaces() {
 	for (var r = 0; r < rows.length; r++) {
 		for (var c = 0; c < cols.length; c++) {

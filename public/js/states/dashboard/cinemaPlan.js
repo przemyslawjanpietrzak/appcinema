@@ -6,14 +6,10 @@ angular
 		var colsCount = 12;
 		var selectedPlaces = [];
 		var movieId = stateService.getMovie();
-
 		var plan = [];
 		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
 
-
-
 		$http.get('/projection/' + movieId).then(function (result) {
-
 			for (var c = 0; c < colsCount; c++) {
 				plan.push([]);
 				for (var r = 0; r < rowsCount; r++) {
@@ -22,7 +18,6 @@ angular
 					);
 				}
 			}
-
 
 			$scope.plan = plan;
 			$scope.rows  = _.range(rowsCount);
