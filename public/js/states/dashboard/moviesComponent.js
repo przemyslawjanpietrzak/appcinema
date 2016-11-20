@@ -16,6 +16,7 @@ angular
 				      <th>3D</th>
 				      <th>Type</th>
 				      <th>Helper</th>
+				      <th>Date</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,6 +25,7 @@ angular
 							<th>{{ movie.is3D ? 'yes' : 'no' }}</th>
 							<th>{{ movie.type }}</th>
 							<th>{{ movie.helper }}</th>
+							<th>{{ movie.dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</th>
 						</tr>
 					</tbody>
 			  </table>

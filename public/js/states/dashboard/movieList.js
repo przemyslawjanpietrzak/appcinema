@@ -8,7 +8,8 @@ angular
 					type: projection.Movie.type,
 					is3D: projection.is3D,
 					id: projection.Movie.id,
-					helper: projection.helper
+					helper: projection.helper,
+					dateTime: projection.dateTime
 				}
 			});
 		};
@@ -63,7 +64,7 @@ angular
 					    </div>
 					  <div class="col-md-9">
 					  <div class="panel panel-default">
-						  <div class="panel-heading">Panel heading</div>
+						  <div class="panel-heading">Movies</div>
 						  <div class="panel-body">
 						    <p>Some Text</p>
 						  </div>

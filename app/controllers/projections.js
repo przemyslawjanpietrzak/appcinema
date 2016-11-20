@@ -41,6 +41,7 @@ exports.projections = function (req, res) {
 
 	db.Projection.findAll({
 		where: projectionSearchParams,
+		order: 'dateTime',
 		include: [{
 			model: db.Movie,
 			attributes: ['title', 'type', 'id'],
