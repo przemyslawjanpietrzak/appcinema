@@ -23,12 +23,6 @@ module.exports = function (grunt) {
 					livereload: true,
 				},
 			},
-			css: {
-				files: ['public/css/**'],
-				options: {
-					livereload: true
-				}
-			}
 		},
 		copy: {
 			options: {

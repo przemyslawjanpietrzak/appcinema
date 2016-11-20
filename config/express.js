@@ -4,7 +4,6 @@ var express = require('express');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var compression = require('compression');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -33,8 +32,7 @@ module.exports = function(app, passport) {
         level: 9
     }));
 
-    //Setting the fav icon and static folder
-    app.use(favicon(config.root + '/public/img/icons/favicon.ico'));
+
     app.use(express.static(config.root + '/public'));
 
     //Don't use logger for test env
