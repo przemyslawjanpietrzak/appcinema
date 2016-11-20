@@ -1,17 +1,17 @@
 'use strict';
 
-var nconf = require('nconf'),
-    json5 = require('json5'),
-    _ = require('lodash'),
-    glob = require('glob'),
-    path = require('path'),
-    fs = require('fs'),
-    StandardError = require('standard-error');
+var nconf = require('nconf');
+var json5 = require('json5');
+var _ = require('lodash');
+var glob = require('glob');
+var path = require('path');
+var fs = require('fs');
+var StandardError = require('standard-error');
 
 
 var rootPath = path.normalize(__dirname + '/..');
 
-// Load app configuration
+
 var computedConfig = {
     root: rootPath,
     modelsDir : rootPath + '/app/models'
@@ -34,7 +34,7 @@ nconf.argv()
 var envConfigPath = rootPath + '/config/env/'+nconf.get('NODE_ENV')+'.json5';
 try{
     if(!fs.statSync(envConfigPath).isFile()){
-        throw new Error(); // throw error to trigger catch
+        throw new Error();
     }
 }
 catch(err){
@@ -49,9 +49,8 @@ nconf.file(nconf.get('NODE_ENV'),{ file: envConfigPath, type:'file', format:json
     .overrides({store:computedConfig});
 
 module.exports = nconf.get();
-/**
- * Get files by glob patterns
- */
+
+
 module.exports.getGlobbedFiles = function(globPatterns, removeRoot) {
 	// For context switching
 	var _this = this;
