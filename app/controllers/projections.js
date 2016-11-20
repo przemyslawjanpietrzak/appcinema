@@ -24,25 +24,27 @@ exports.projection = function (req, res, next, id) {
 
 exports.projections = function (req, res) {
 
-	var searchParams = {};
+	var projectionSearchParams = {};
+	var movieSearchParams = {};
 	if (req.param('title')) {
-		searchParams.title = req.param('title')
+		movieSearchParams.title = req.param('title')
 	}
 	if (req.param('is3D')) {
-		searchParams.is3D = req.param('is3D')
+		projectionSearchParams.is3D = req.param('is3D')
 	}
 	if (req.param('type')) {
-		searchParams.type = req.param('type')
+		movieSearchParams.type = req.param('type')
 	}
 	if (req.param('helper')) {
-		searchParams.helper = eq.param('helper')
+		projectionSearchParams.helper = eq.param('helper')
 	}
 
 	db.Projection.findAll({
+		where: projectionSearchParams,
 		include: [{
 			model: db.Movie,
-			attributes: ['title'],
-			where: searchParams
+			attributes: ['title', 'type', 'id'],
+			where: movieSearchParams
 		}]
 	}).then(function (projections) {
 		return res.jsonp(projections);
@@ -55,7 +57,11 @@ exports.bookSpaces = function (req, res, next, id) {
 			ProjectionId: id,
 			row: req.body.row,
 			col: req.body.row
-		}
+		},
+		include: [{
+			model: db.Movie,
+			attributes: ['title', 'type']
+		}]
 	}).then(function (projectionPlace) {
 		return projectionPlace.update({ status: 'boocked', });
 	})

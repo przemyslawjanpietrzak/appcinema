@@ -1,21 +1,36 @@
 angular
 	.module('dashboard.movieList', [])
-	.controller('dashboard.movieList.controller', function ($scope, $http, mySocket) {
-		$scope.movies = [];
-		$http({ method: 'get', url: '/movies' }).then(function (result) {
-			$scope.movies = result.data;
-		});
-
-		$scope.searchMovies = function (searchData) {
-			$http({ method: 'get',  url: '/movies', params: searchData }).then(function (result) {
-				$scope.movies = result.data;
+	.controller('dashboard.movieList.controller', function ($scope, $http, _) {
+		var parseResponse = function (response) {
+			return _.map(response.data, function (projection) {
+				return {
+					title: projection.Movie.title,
+					type: projection.Movie.type,
+					is3D: projection.is3D,
+					id: projection.Movie.id,
+					helper: projection.helper
+				}
 			});
 		};
 
-		mySocket.on('xxx', function (data) {
-			console.log('xxx ', data);
+		$scope.movies = [];
+		$http({ method: 'get', url: '/projection' }).then(function (response) {
+			$scope.movies = parseResponse(response);
 		});
-		
+
+		$scope.searchMovies = function (title, type, is3D) {
+			var searchData = {
+				title: title,
+				type: type,
+				is3D: is3D ? 1 : 0
+			};
+			$http({ method: 'get',  url: '/projection', params: searchData }).then(function (response) {
+				$scope.movies = parseResponse(response);
+			});
+		};
+
+		$scope.moviesTypes = ['', 'comedy', 'horror', 'drama', 'thriler', 'sci-fi']; // TODO get from settings
+
 	})
 	.config(function ($stateProvider) {
 		$stateProvider
@@ -26,15 +41,23 @@ angular
 					<div class="row">
 					  <div class="col-md-3">
 					    <div class="panel panel-primary">
-					      <div class="panel-heading">Panel heading without title</div>
+					      <div class="panel-heading">Search</div>
 					        <div class="panel-body">
-					          <ul class="list-group">
-					            <li class="list-group-item">Cras justo odio</li>
-					            <li class="list-group-item">Dapibus ac facilisis in</li>
-					            <li class="list-group-item">Morbi leo risus</li>
-					            <li class="list-group-item">Porta ac consectetur ac</li>
-					            <li class="list-group-item">Vestibulum at eros</li>
-					          </ul>
+					         <form ng-submit="searchMovies(title, type, is3D)">
+									  <div class="form-group">
+									    <label for="exampleInputEmail1">Title</label>
+									    <input type="text" class="form-control" placeholder="Title" ng-model="title">
+									  </div>
+									  <div class="form-group">
+									    <label for="exampleInputPassword1">Helper</label>
+									    <select class="form-control"  ng-model="type" ng-options="type for type in moviesTypes"></select>
+									  </div>
+									  <div class="form-group">
+									    <label for="exampleInputFile">id 3D</label>
+									    <input class="form-control"  type="checkbox" ng-model="is3D">
+									  </div>
+									  <button type="submit" class="btn btn-success">Search</button>
+									</form>
 					        </div>
 					      </div>
 					    </div>
