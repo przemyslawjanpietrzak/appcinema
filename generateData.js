@@ -65,13 +65,7 @@ function generateProjections(places) {
 			db.Place.findAll({}).then(function(places) {
 				generateProjections(places, { status: 'free' });
 			});
-
-
-			// db.User.create({
-			// 	username: randomString()
-			// }).then(function (user) {
-			// 	user.save();
-			// });
+			
 		}, 1500);
 	}, 1500);
 
