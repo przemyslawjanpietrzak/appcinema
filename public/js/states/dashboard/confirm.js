@@ -1,7 +1,8 @@
 angular
 	.module('dashboard.confirm.module', [])
-	.controller('dashboard.confirm.controller', function ($scope, $http, $state, stateService) {
-		
+	.controller('dashboard.confirm.controller', function ($scope, $http, $state, _, stateService) {
+
+
 		$scope.reducedTicketsCount = stateService.getUnreducedTicketsCount();
 		$scope.unreducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.places = stateService.getPlaces();
@@ -10,8 +11,8 @@ angular
 		$scope.confirm = function () {
 			$http.put('/projection/update', {
 				id: '1',
-				col: 'a',
-				row: '1'
+				col: _.map($scope.places, 'col'),
+				row: _.map($scope.places, 'row')
 			}).then(function () {
 				stateService.reset();
 				$state.go('dashboard.movieList');

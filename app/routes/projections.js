@@ -13,7 +13,10 @@ module.exports = function (app) {
 	app.put('/projection/update', function (req, res) {
 		var placeId;
 		db.Place.find({
-			where: { col: req.body.col, row: req.body.row }
+			where: {
+				col: { $in: req.body.col },
+				row: { $in: req.body.row }
+			}
 		})
 		.then(function (place) {
 			placeId = place.dataValues.id;
