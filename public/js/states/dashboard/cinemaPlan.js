@@ -1,43 +1,55 @@
 angular
 	.module('dashboard.cinemaPlan', [])
-	.controller('dashboard.cinemaPlan.controller', function ($scope, $http, $state,  _, stateService) {
-
+	.service('getCinemaPlan', function ($http) {
 		var rowsCount = 12;
 		var colsCount = 12;
+
+		return function (movieId, cb) {
+			var plan = [];
+
+			$http.get('/projection/' + movieId).then(function (result) {
+				for (var c = 0; c < colsCount; c++) {
+					plan.push([]);
+					for (var r = 0; r < rowsCount; r++) {
+						plan[c].push(
+							result.data.Places[r*rowsCount + c].ProjectionPlace.status
+						);
+					}
+				}
+
+				cb({
+					plan: plan,
+					rows: _.range(rowsCount),
+					cols: _.range(colsCount)
+				});
+			});
+		}
+	})
+	.controller('dashboard.cinemaPlan.controller', function ($scope, $http, $state,  _, stateService, getCinemaPlan) {
 		var selectedPlaces = [];
 		var movieId = stateService.getMovie();
-		var plan = [];
+
 		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
 
-		$http.get('/projection/' + movieId).then(function (result) {
-			for (var c = 0; c < colsCount; c++) {
-				plan.push([]);
-				for (var r = 0; r < rowsCount; r++) {
-					plan[c].push(
-						result.data.Places[r*rowsCount + c].ProjectionPlace.status
-					);
-				}
-			}
-
-			$scope.plan = plan;
-			$scope.rows  = _.range(rowsCount);
-			$scope.cols  = _.range(colsCount);
-			return plan;
+		getCinemaPlan(movieId, function (result) {
+			$scope.plan = result.plan;
+			$scope.rows = result.rows;
+			$scope.cols = result.cols;
 		});
 
 		$scope.placeClickHandler = function (col, row) {
-			if (plan[col][row] === 'free') {
+			if ($scope.plan[col][row] === 'free') {
 				selectedPlaces.push({ row: row, col: col });
-				plan[col][row] = 'boocked';
+				$scope.plan[col][row] = 'boocked';
 				$scope.ticketLeftCount--;
 			} else {
-				plan[col][row] = 'free';
+				$scope.plan[col][row] = 'free';
 				$scope.ticketLeftCount++;
 			}
 		};
 
 		$scope.disabledButton = function(plan, col, row) {
-			return plan[col][row] === 'bought' || ($scope.ticketLeftCount === 0 && plan[col][row] === 'free')
+			return $scope.plan[col][row] === 'bought' || ($scope.ticketLeftCount === 0 && $scope.plan[col][row] === 'free')
 		};
 
 		$scope.goNext = function () {
