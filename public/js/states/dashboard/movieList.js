@@ -29,7 +29,7 @@ angular
 			});
 		};
 
-		$scope.moviesTypes = ['subtitles', 'dubbing', 'lector']; // TODO get from settings
+		$scope.moviesTypes = ['', 'comedy', 'horror', 'drama', 'thriler', 'sci-fi']; // TODO get from settings
 
 	})
 	.config(function ($stateProvider) {
