@@ -57,7 +57,7 @@ angular
 									    <label for="exampleInputFile">id 3D</label>
 									    <input class="form-control"  type="checkbox" ng-model="is3D">
 									  </div>
-									  <button type="submit" class="btn btn-success">Search</button>
+									  <button type="submit" class="btn btn-primary">Search</button>
 									</form>
 					        </div>
 					      </div>

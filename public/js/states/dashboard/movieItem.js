@@ -48,7 +48,7 @@ angular
 									<div class="row">
 										<div class="col-md-12">
 						          <div class="input-group input-group-lg">
-										    <button class="btn btn-success" type="submit">Next</button>
+										    <button class="btn btn-info" type="submit">Next</button>
 											</div>
 										</div>
 									</div>

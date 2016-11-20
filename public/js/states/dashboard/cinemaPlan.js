@@ -69,7 +69,6 @@ angular
 		});
 
 		$scope.placeClickHandler = function (col, row) {
-
 			if ($scope.plan[col][row] === 'free') {
 				selectedPlaces.push({ row: row, col: col });
 				$scope.plan[col][row] = 'taken';
@@ -98,9 +97,10 @@ angular
 				controller: 'dashboard.cinemaPlan.controller',
 				template: `
 					<div>
-						<span>ticketLeftCount = {{ ticketLeftCount }}</span>
-						<button class="btn-info" ng-show="ticketLeftCount === 0" ng-click="goNext()">Next</button>
-					  <div class="row" ng-repeat="col in cols track by $index">
+						<h3>Tickets to select: {{ ticketLeftCount }}</h3><hr>
+						<span class="ac-screen"><h6>Screen</h6></span>
+						<hr>
+					  <div class="ac-row row" ng-repeat="col in cols track by $index">
 					  	<div class="col-md-1" ng-repeat="row in rows track by $index">
 					  		<button
 					  			class="btn"
@@ -110,6 +110,7 @@ angular
 								>{{ plan[col][row] }}</button>
 							</div>
 						</div>
+						<button class="btn btn-primary" ng-show="ticketLeftCount === 0" ng-click="goNext()">Next</button>	
 					</div>
 				`
 			})
