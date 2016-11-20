@@ -14,6 +14,7 @@ var sessionMiddleware = require('./middlewares/session');
 var config = require('./config');
 var winston = require('./winston');
 
+var rrr = require('../app/controllers/projections');
 
 module.exports = function(app, passport) {
 
@@ -52,8 +53,9 @@ module.exports = function(app, passport) {
     app.use(cookieParser());
 
     // request body parsing middleware should be above methodOverride
-    app.use(bodyParser.urlencoded({ extended: true }));
+
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(methodOverride());
 
     //express session configuration
@@ -69,11 +71,9 @@ module.exports = function(app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // Globbing routing files
     config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
       require(path.resolve(routePath))(app);
     });
-
     app.get('*',  function (req, res, next) {
             res.render('index');
     });
@@ -88,5 +88,5 @@ module.exports = function(app, passport) {
             error: err.stack
         });
     });
-
+    
 };

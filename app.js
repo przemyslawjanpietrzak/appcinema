@@ -12,7 +12,6 @@ winston.info('Starting ' + config.app.name + '...');
 winston.info('Config loaded: ' + config.NODE_ENV);
 winston.debug('Accepted Config:', config);
 
-var db = require('./config/sequelize');
 var passport = require('./config/passport');
 var app = express();
 
@@ -21,6 +20,7 @@ require('./config/express')(app, passport);
 
 //Start the app by listening on <port>
 app.listen(config.PORT);
+
 winston.info('Express app started on port ' + config.PORT);
 
 //expose app

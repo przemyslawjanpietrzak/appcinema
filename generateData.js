@@ -27,8 +27,8 @@ function generateMovies() {
 }
 
 
-var rows = ['1', '2', '3', '4', '5', '6', '7'];
-var cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+var rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+var cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
 function generatePlaces() {
 	for (var r = 0; r < rows.length; r++) {
 		for (var c = 0; c < cols.length; c++) {
@@ -65,13 +65,7 @@ function generateProjections(places) {
 			db.Place.findAll({}).then(function(places) {
 				generateProjections(places, { status: 'free' });
 			});
-
-
-			// db.User.create({
-			// 	username: randomString()
-			// }).then(function (user) {
-			// 	user.save();
-			// });
+			
 		}, 1500);
 	}, 1500);
 
