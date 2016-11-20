@@ -1,19 +1,33 @@
 angular
 	.module('dashboard.cinemaPlan', [])
-	.controller('dashboard.cinemaPlan.controller', function ($scope, $state,  _, stateService) {
-		var selectedPlaces = [];
+	.controller('dashboard.cinemaPlan.controller', function ($scope, $http, $state,  _, stateService) {
 
-		$scope.rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-		$scope.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
+		var rowsCount = 12;
+		var colsCount = 12;
+		var selectedPlaces = [];
+		var movieId = stateService.getMovie();
+
+		var plan = [];
 		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
 
-		var plan = {};
-		_.forEach($scope.cols, function (col) {
-			var line = {};
-			_.forEach($scope.rows, function (row) {
-				line[row] = 'free'
-			});
-			plan[col] = line;
+
+
+		$http.get('/projection/' + movieId).then(function (result) {
+
+			for (var c = 0; c < colsCount; c++) {
+				plan.push([]);
+				for (var r = 0; r < rowsCount; r++) {
+					plan[c].push(
+						result.data.Places[r*rowsCount + c].ProjectionPlace.status
+					);
+				}
+			}
+
+
+			$scope.plan = plan;
+			$scope.rows  = _.range(rowsCount);
+			$scope.cols  = _.range(colsCount);
+			return plan;
 		});
 
 		$scope.placeClickHandler = function (col, row) {
@@ -27,7 +41,7 @@ angular
 			}
 		};
 
-		$scope.disabledButton = function(col, row) {
+		$scope.disabledButton = function(plan, col, row) {
 			return plan[col][row] === 'bought' || ($scope.ticketLeftCount === 0 && plan[col][row] === 'free')
 		};
 
@@ -35,8 +49,6 @@ angular
 			stateService.setPlaces(selectedPlaces);
 			$state.go('dashboard.confirm');
 		};
-
-		$scope.plan = plan;
 	})
 	.config(function ($stateProvider) {
 		$stateProvider
@@ -53,7 +65,7 @@ angular
 					  			class="btn"
 					  			ng-class="{ 'btn-success': plan[col][row] === 'free', 'bnt-danger': plan[col][row] === 'bought', 'btn-default': plan[col][row] === 'booked'}"
 					  			ng-click="placeClickHandler(col, row)"
-					  			ng-disabled="disabledButton(col, row)"
+					  			ng-disabled="disabledButton(plan, col, row)"
 								>{{ plan[col][row] }}</button>
 							</div>
 						</div>
