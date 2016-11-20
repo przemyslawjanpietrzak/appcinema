@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function (grunt) {
-	// Project Configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
@@ -24,19 +23,6 @@ module.exports = function (grunt) {
 					livereload: true,
 				},
 			},
-			css: {
-				files: ['public/css/**'],
-				options: {
-					livereload: true
-				}
-			}
-		},
-		jshint: {
-			all: ['gruntfile.js', 'public/js/**/*.js', 'test/mocha/**/*.js', 'test/karma/**/*.js', 'app/**/*.js'],
-			options: {
-				jshintrc: '.jshintrc',
-				reporter: require('jshint-stylish')
-			}
 		},
 		copy: {
 			options: {
@@ -197,7 +183,7 @@ module.exports = function (grunt) {
 						expand: true
 					},
 					{cwd: 'bower_components/bootstrap/js', src: ['*.js'], dest: 'public/lib/bootstrap/js', expand: true},
-
+					{cwd: 'bower_components/bootstrap/less', src: ['*.less'], dest: 'public/lib/bootstrap/less', expand: true},
 					{
 						cwd: 'bower_components/bootstrap/dist/css',
 						src: ['*.*'],
@@ -239,43 +225,16 @@ module.exports = function (grunt) {
 			options: {
 				logConcurrentOutput: true
 			}
-		},
-		mochaTest: {
-			options: {
-				reporter: 'spec'
-			},
-			src: ['test/mocha/**/*.js']
-		},
-		env: {
-			test: {
-				NODE_ENV: 'test'
-			}
-		},
-		generateData: {
-
-		},
-		karma: {
-			unit: {
-				configFile: 'test/karma/karma.conf.js'
-			}
 		}
 	});
-	
-	//Load NPM tasks
+
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
-	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('grunt-env');
 	grunt.loadNpmTasks('grunt-copy');
-	
-	//Making grunt default to force in order not to break the project.
+
 	grunt.option('force', true);
-	
-	//Default task(s).
+
 	grunt.registerTask('default', ['copy', 'concurrent']);
-	
-	//Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
 };

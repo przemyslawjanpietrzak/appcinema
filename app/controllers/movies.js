@@ -18,17 +18,10 @@ exports.movie = function(req, res, next, id) {
 };
 
 exports.movies = function(req, res) {
-
-
-
 	db.Movie.findAll({
 		attributes: {
 			include: ['title', 'type']
-		},
-		// where: {
-		// 	title: req.params.title,
-		// 	type: req.params.title
-		// }
+		}
 	}).then(function (movies) {
 		return res.jsonp(movies);
 	});
