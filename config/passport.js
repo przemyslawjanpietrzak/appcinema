@@ -22,7 +22,6 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-//Use local strategy
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'

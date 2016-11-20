@@ -14,20 +14,11 @@ var config = require('./config');
 
 module.exports = function(app, passport) {
 
-    app.set('showStackError', true);    
-    
+    app.set('showStackError', true);
 
     app.locals.pretty = true;
 
-    app.use(compression({
-        filter: function(req, res) {
-            return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
-        },
-        level: 9
-    }));
-
-
-    app.use(express.static(config.root + '/public'));
+   app.use(express.static(config.root + '/public'));
     
     app.set('views', config.root + '/app/views');
     app.set('view engine', 'jade');
@@ -35,7 +26,6 @@ module.exports = function(app, passport) {
     app.enable("jsonp callback");
     
     app.use(cookieParser());
-
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
