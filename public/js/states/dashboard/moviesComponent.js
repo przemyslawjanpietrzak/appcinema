@@ -19,7 +19,7 @@ angular
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="movie in $ctrl.movies track by movie.id" ui-sref="dashboard.movieItem({ movieId: movie.id })">
+						<tr ng-repeat="movie in $ctrl.movies track by $index" ui-sref="dashboard.movieItem({ movieId: movie.id })">
 							<th>{{ movie.title }}</th>
 							<th>{{ movie.is3D ? 'yes' : 'no' }}</th>
 							<th>{{ movie.type }}</th>

@@ -9,7 +9,7 @@ function randomString() {
 }
 
 function randomFrom(arr) {
-	return arr[Math.floor(Math.random()) % arr.length];
+	return arr[Math.floor(Math.random() * arr.length)];
 }
 var moviesTypes = ['comedy', 'horror', 'drama', 'thriler', 'sci-fi'];
 
@@ -27,8 +27,8 @@ function generateMovies() {
 }
 
 
-var rows = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
-var cols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+var rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+var cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 function generatePlaces() {
 	for (var r = 0; r < rows.length; r++) {
 		for (var c = 0; c < cols.length; c++) {
@@ -46,11 +46,11 @@ function generateProjections(places) {
 	for (var i = 0; i < 50; i++) {
 		db.Projection.create({
 			dateTime: Date.now() + 3*i*hour,
-			is3D: Math.floor(Math.random()) % 2 === 0,
+			is3D: Math.floor(Math.random()*2) === 0,
 			helper: randomFrom['subtitles', 'dubbing', 'lector']
 		}).then(function (projection) {
 			projection.setPlaces(places);
-			projection.setMovie(movies[i % 10])
+			projection.setMovie(randomFrom(movies))
 		})
 	}
 }
