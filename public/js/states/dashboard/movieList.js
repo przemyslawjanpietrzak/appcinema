@@ -22,7 +22,7 @@ angular
 			var searchData = {
 				title: title,
 				type: type,
-				is3D: is3D
+				is3D: is3D ? 1 : 0
 			};
 			$http({ method: 'get',  url: '/projection', params: searchData }).then(function (response) {
 				$scope.movies = parseResponse(response);
