@@ -1,6 +1,7 @@
 angular
 	.module('dashboard', [
 		'dashboard.state.service',
+		'socketService.module',
 		
 		'dashboard.moviesComponent.module',
 
@@ -17,9 +18,10 @@ angular
 
 		facebookService.getMyLastName()
 			.then(function(response) {
-					console.log('fb, re', response);
+					stateService.setUser(response); // TODO
 				}, function (response) {
-					console.error('fb, re', response);
+					stateService.setUser(null);
+					$state.go('login');
 				}
 			);
 	})
