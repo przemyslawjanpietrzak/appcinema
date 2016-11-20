@@ -1,6 +1,6 @@
 angular
 	.module('dashboard.movieList', [])
-	.controller('dashboard.movieList.controller', function ($scope, $http) {
+	.controller('dashboard.movieList.controller', function ($scope, $http, mySocket) {
 		$scope.movies = [];
 		$http({ method: 'get', url: '/movies' }).then(function (result) {
 			$scope.movies = result.data;
@@ -11,6 +11,10 @@ angular
 				$scope.movies = result.data;
 			});
 		};
+
+		mySocket.on('xxx', function (data) {
+			console.log('xxx ', data);
+		});
 		
 	})
 	.config(function ($stateProvider) {

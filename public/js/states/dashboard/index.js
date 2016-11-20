@@ -10,16 +10,10 @@ angular
 		'dashboard.confirm.module'
 	])
 	.factory('mySocket', function (socketFactory) {
-		var myIoSocket = io.connect('/');
-
-		var mySocket = socketFactory({
-			ioSocket: myIoSocket
-		});
-
-		return mySocket;
+		return socketFactory();
 	})
-	.controller('dashboard.controller', function (mySocket) {
-		mySocket.emit('xxx', { data: 1});
+	.controller('dashboard.controller', function (stateService) {
+		stateService.setUser(Math.random()); // TODO
 	})
 	.config(function ($stateProvider) {
 		$stateProvider

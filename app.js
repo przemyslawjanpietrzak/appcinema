@@ -19,10 +19,24 @@ var passport = require('./config/passport');
 
 require('./config/express')(app, passport);
 
-io.on('connection', function(socket){
+
+var usersSockets = [];
+io.on('connection', function(socket) {
+	usersSockets.push(socket)
 	console.log('a user connected');
-	socket.on('xxx', function (data) {
-		console.log(data);
+
+	socket.emit('xxx', { a:1} );
+
+	socket.on('bookPlace', function (place) {
+		usersSockets.forEach(function (userSocket) {
+			userSocket.emit('removeFreePlace', place);
+		});
+	});
+	
+	socket.on('unbookPlace', function (place) {
+		usersSockets.forEach(function (userSocket) {
+			userSocket.emit('addFreePlace', place);
+		})
 	})
 });
 
