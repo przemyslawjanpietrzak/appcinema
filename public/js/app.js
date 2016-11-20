@@ -8,6 +8,9 @@ angular
 		'satellizer',
 		'angularFblogin',
 		'btford.socket-io',
+
+		'facebookService.module',
+		'login',
 		'dashboard'
 	])
 	.constant('_', window._)
@@ -28,11 +31,16 @@ angular
 
 		$urlRouterProvider.otherwise("/login");
 	})
-	.run(function ($rootScope, $state) {
-		console.log('run');
-		$state.go('dashboard.movieList');
-		$rootScope.$on('$locationChangeStart', function (event, nextLocation, currentLocation) {
-			//your code here
-		});
+	.run(function ($window, $state, facebookInit) {
+		facebookInit().then(
+			function (response) {
+				console.log(response);
+				$state.go('dashboard.movieList');
+			},
+			function (response) {
+				console.error(response);
+				$state.go('login');
+			}
+		)
 	});
 

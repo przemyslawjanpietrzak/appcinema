@@ -12,8 +12,16 @@ angular
 	.factory('mySocket', function (socketFactory) {
 		return socketFactory();
 	})
-	.controller('dashboard.controller', function (stateService) {
+	.controller('dashboard.controller', function ($state, facebookService, stateService) {
 		stateService.setUser(Math.random()); // TODO
+
+		facebookService.getMyLastName()
+			.then(function(response) {
+					console.log('fb, re', response);
+				}, function (response) {
+					console.error('fb, re', response);
+				}
+			);
 	})
 	.config(function ($stateProvider) {
 		$stateProvider
@@ -25,10 +33,8 @@ angular
 						<header class="page-header">
 							<h1>Example page header <small>Subtext for header</small></h1>
 						</header>
-						<content>
-							<ui-view />
-						</content>
-					</div>
+						<ui-view />
+					</content>
 				`,
 			})
 	});
