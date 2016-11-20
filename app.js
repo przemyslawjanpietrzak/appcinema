@@ -2,9 +2,12 @@
 
 
 var express = require('express');
-var fs = require('fs');
 
-// Load Configurations
+var app = express();
+var fs = require('fs');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 var config = require('./config/config');
 var winston = require('./config/winston');
 
@@ -13,15 +16,35 @@ winston.info('Config loaded: ' + config.NODE_ENV);
 winston.debug('Accepted Config:', config);
 
 var passport = require('./config/passport');
-var app = express();
 
-//Initialize Express
 require('./config/express')(app, passport);
 
-//Start the app by listening on <port>
-app.listen(config.PORT);
+
+var usersSockets = [];
+io.on('connection', function(socket) {
+	usersSockets.push(socket)
+	console.log('a user connected');
+
+	socket.emit('xxx', { a:1} );
+
+	socket.on('bookPlace', function (place) {
+		usersSockets.forEach(function (userSocket) {
+			userSocket.emit('removeFreePlace', place);
+		});
+	});
+	
+	socket.on('unbookPlace', function (place) {
+		usersSockets.forEach(function (userSocket) {
+			userSocket.emit('addFreePlace', place);
+		})
+	})
+});
+
+
+http.listen(3000, function(){
+	console.log('listening on *:3000');
+});
 
 winston.info('Express app started on port ' + config.PORT);
 
-//expose app
 module.exports = app;

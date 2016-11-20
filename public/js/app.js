@@ -1,4 +1,5 @@
-angular.module('mean', [
+angular
+	.module('root', [
 		'ngCookies',
 		'ngResource',
 		'ui.router',
@@ -6,12 +7,11 @@ angular.module('mean', [
 		'ui.route',
 		'satellizer',
 		'angularFblogin',
-
+		'btford.socket-io',
 		'dashboard'
 	])
 	.constant('_', window._)
-	.config(function ($authProvider) {
-
+	.config(function ($urlRouterProvider, $authProvider) {
 		$authProvider.twitter({
 			url: '/auth/twitter',
 			authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
@@ -25,9 +25,14 @@ angular.module('mean', [
 			url: '/auth/google',
 			redirectUri: 'http://localhost:3000/auth/google/callback'
 		});
-	});
 
-angular.module('mean.system', []);
-angular.module('mean.articles', []);
-angular.module('mean.auth', []);
+		$urlRouterProvider.otherwise("/login");
+	})
+	.run(function ($rootScope, $state) {
+		console.log('run');
+		$state.go('dashboard.movieList');
+		$rootScope.$on('$locationChangeStart', function (event, nextLocation, currentLocation) {
+			//your code here
+		});
+	});
 

@@ -9,8 +9,11 @@ angular
 		'dashboard.cinemaPlan',
 		'dashboard.confirm.module'
 	])
-	.controller('dashboard.controller', function () {
-
+	.factory('mySocket', function (socketFactory) {
+		return socketFactory();
+	})
+	.controller('dashboard.controller', function (stateService) {
+		stateService.setUser(Math.random()); // TODO
 	})
 	.config(function ($stateProvider) {
 		$stateProvider

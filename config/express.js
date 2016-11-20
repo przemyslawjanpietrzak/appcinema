@@ -74,7 +74,7 @@ module.exports = function(app, passport) {
     config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
       require(path.resolve(routePath))(app);
     });
-    app.get('*',  function (req, res, next) {
+    app.get('index',  function (req, res, next) {
             res.render('index');
     });
 

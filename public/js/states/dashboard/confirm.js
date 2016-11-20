@@ -11,8 +11,12 @@ angular
 		$scope.confirm = function () {
 			$http.put('/projection/update', {
 				id: '1',
-				col: _.map($scope.places, 'col'),
-				row: _.map($scope.places, 'row')
+				col: _.map($scope.places, function (place) {
+					return String(place.col);
+				}),
+				row:_.map($scope.places, function (place) {
+					return String(place.row);
+				})
 			}).then(function () {
 				stateService.reset();
 				$state.go('dashboard.movieList');
