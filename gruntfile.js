@@ -239,6 +239,9 @@ module.exports = function (grunt) {
 				NODE_ENV: 'test'
 			}
 		},
+		generateData: {
+
+		},
 		karma: {
 			unit: {
 				configFile: 'test/karma/karma.conf.js'

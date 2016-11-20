@@ -1,8 +1,6 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+
 var express = require('express');
 var fs = require('fs');
 
@@ -16,7 +14,6 @@ winston.debug('Accepted Config:', config);
 
 var db = require('./config/sequelize');
 var passport = require('./config/passport');
-
 var app = express();
 
 //Initialize Express

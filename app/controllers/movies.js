@@ -18,12 +18,7 @@ exports.movie = function(req, res, next, id) {
 };
 
 exports.movies = function(req, res) {
-	// db.Movie.create({
-	// 	title: 'BatMan1',
-	// 	type: 'comedy'
-	// }).then(function (movie) {
-	// 	movie.save();
-	// });
+
 
 
 	db.Movie.findAll({
