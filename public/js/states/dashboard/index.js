@@ -14,12 +14,11 @@ angular
 		return socketFactory();
 	})
 	.controller('dashboard.controller', function ($state, facebookService, stateService) {
-		stateService.setUser(Math.random()); // TODO
-
 		facebookService.getMyLastName()
 			.then(function(response) {
-					stateService.setUser(response); // TODO
-				}, function (response) {
+					stateService.setUser(response);
+					$state.go('dashboard.movieList');
+				}, function () {
 					stateService.setUser(null);
 					$state.go('login');
 				}
@@ -33,7 +32,7 @@ angular
 				template: `
 					<content>
 						<header class="page-header">
-							<h1>Example page header <small>Subtext for header</small></h1>
+							<h1>App Cinema</h1>
 						</header>
 						<ui-view />
 					</content>

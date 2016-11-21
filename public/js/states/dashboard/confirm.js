@@ -1,8 +1,7 @@
 angular
 	.module('dashboard.confirm.module', [])
 	.controller('dashboard.confirm.controller', function ($scope, $http, $state, _, stateService) {
-
-
+		
 		$scope.reducedTicketsCount = stateService.getUnreducedTicketsCount();
 		$scope.unreducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.places = stateService.getPlaces();

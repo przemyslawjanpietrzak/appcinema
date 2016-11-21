@@ -7,7 +7,7 @@ angular
 			var isPlaceTaken = _.find(takedPlaces, function (place) {
 				return String(place.col) === String(colIndex) && String(place.row) === String(rowIndex) && place.movieId === place.movieId;
 			});
-			var placeStatus = result.data.Places[rowIndex * rowsCount + colIndex].ProjectionPlace.status
+			var placeStatus = result.data.Places[rowIndex * rowsCount + colIndex].ProjectionPlace.status;
 
 			return isPlaceTaken ? 'boocked' : placeStatus;
 		};
@@ -45,7 +45,7 @@ angular
 		getCinemaPlan
 	) {
 		var selectedPlaces = [];
-		var movieId = stateService.getMovie();
+		var movieId = stateService.getMovie().id;
 		var user = stateService.getUser();
 
 		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
@@ -69,9 +69,8 @@ angular
 		});
 
 		$scope.placeClickHandler = function (col, row) {
-
 			if ($scope.plan[col][row] === 'free') {
-				selectedPlaces.push({ row: row, col: col });
+				selectedPlaces.push({row: row, col: col});
 				$scope.plan[col][row] = 'taken';
 				$scope.ticketLeftCount--;
 				socketService.emitTakePlaceEvent(col, row, user, movieId);
@@ -82,7 +81,7 @@ angular
 			}
 		};
 
-		$scope.disabledButton = function(plan, col, row) {
+		$scope.disabledButton = function (plan, col, row) {
 			return $scope.plan[col][row] === 'boocked' || ($scope.ticketLeftCount === 0 && $scope.plan[col][row] === 'free')
 		};
 
@@ -98,9 +97,10 @@ angular
 				controller: 'dashboard.cinemaPlan.controller',
 				template: `
 					<div>
-						<span>ticketLeftCount = {{ ticketLeftCount }}</span>
-						<button class="btn-info" ng-show="ticketLeftCount === 0" ng-click="goNext()">Next</button>
-					  <div class="row" ng-repeat="col in cols track by $index">
+						<h3>Tickets to select: {{ ticketLeftCount }}</h3><hr>
+						<span class="ac-screen"><h6>Screen</h6></span>
+						<hr>
+					  <div class="ac-row row" ng-repeat="col in cols track by $index">
 					  	<div class="col-md-1" ng-repeat="row in rows track by $index">
 					  		<button
 					  			class="btn"
@@ -110,6 +110,7 @@ angular
 								>{{ plan[col][row] }}</button>
 							</div>
 						</div>
+						<button class="btn btn-primary" ng-show="ticketLeftCount === 0" ng-click="goNext()">Next</button>	
 					</div>
 				`
 			})

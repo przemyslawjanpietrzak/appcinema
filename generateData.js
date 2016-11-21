@@ -27,14 +27,13 @@ function generateMovies() {
 }
 
 
-var rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-var cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
 function generatePlaces() {
-	for (var r = 0; r < rows.length; r++) {
-		for (var c = 0; c < cols.length; c++) {
+	for (var r = 0; r < 12; r++) { // TODO get from settings
+		for (var c = 0; c < 12; c++) {
 			db.Place.create({
-				row: rows[r],
-				col: cols[c]
+				row: String(r),
+				col: String(c)
 			})
 		}
 	}

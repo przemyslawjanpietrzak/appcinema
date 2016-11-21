@@ -1,16 +1,18 @@
 angular
 	.module('dashboard.movieItem', [])
 	.controller('dashboard.movieItem.controller', function ($scope, $http, $state, stateService) {
-		var movieId = $state.params.movieId;
-
-		$scope.movie = stateService.getMovie();
 		$scope.reducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.unreducedTicketsCount = stateService.getUnreducedTicketsCount();
 
 		$scope.submitTicketFrom = function (reducedTicketsCount, unreducedTicketsCount) {
-			stateService.setMovie(movieId);
-			stateService.setTicketsCount(reducedTicketsCount, unreducedTicketsCount);
-			$state.go('dashboard.cinemaPlan');
+			if (reducedTicketsCount || unreducedTicketsCount) {
+				$scope.errorMessage = '';
+				stateService.setTicketsCount(reducedTicketsCount, unreducedTicketsCount);
+				$state.go('dashboard.cinemaPlan');
+			} else {
+				$scope.errorMessage = 'You need to choose at least one ticket'
+			}
+
 		}
 	})
 	.config(function ($stateProvider) {
@@ -21,9 +23,10 @@ angular
 				template: `
 					<div class="panel panel-default">
 					  <div class="panel-heading">
-					    <h3 class="panel-title">{{ movie.title }}</h3>
+					    <h3 class="panel-title">Choose tickets</h3>
 					  </div>
 					  <div class="panel-body">
+					  	<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{ errorMessage }}</div>	
 					    <form ng-submit="submitTicketFrom(reducedTicketsCount, unreducedTicketsCount)">
 					    	<div class="row">
 					    		<div class="col-md-6">
@@ -41,7 +44,7 @@ angular
 									<div class="row">
 										<div class="col-md-12">
 						          <div class="input-group input-group-lg">
-										    <button class="btn btn-success" type="submit">Next</button>
+										    <button class="btn btn-info" type="submit">Next</button>
 											</div>
 										</div>
 									</div>

@@ -1,6 +1,6 @@
 angular
 	.module('dashboard.movieList', [])
-	.controller('dashboard.movieList.controller', function ($scope, $http, _) {
+	.controller('dashboard.movieList.controller', function ($scope, $http, $state, _, stateService) {
 		var parseResponse = function (response) {
 			return _.map(response.data, function (projection) {
 				return {
@@ -8,7 +8,8 @@ angular
 					type: projection.Movie.type,
 					is3D: projection.is3D,
 					id: projection.Movie.id,
-					helper: projection.helper
+					helper: projection.helper,
+					dateTime: projection.dateTime
 				}
 			});
 		};
@@ -30,6 +31,7 @@ angular
 		};
 
 		$scope.moviesTypes = ['', 'comedy', 'horror', 'drama', 'thriler', 'sci-fi']; // TODO get from settings
+
 
 	})
 	.config(function ($stateProvider) {
@@ -56,14 +58,14 @@ angular
 									    <label for="exampleInputFile">id 3D</label>
 									    <input class="form-control"  type="checkbox" ng-model="is3D">
 									  </div>
-									  <button type="submit" class="btn btn-success">Search</button>
+									  <button type="submit" class="btn btn-primary">Search</button>
 									</form>
 					        </div>
 					      </div>
 					    </div>
 					  <div class="col-md-9">
 					  <div class="panel panel-default">
-						  <div class="panel-heading">Panel heading</div>
+						  <div class="panel-heading">Movies</div>
 						  <div class="panel-body">
 						    <p>Some Text</p>
 						  </div>
