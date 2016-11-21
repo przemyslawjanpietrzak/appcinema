@@ -1,7 +1,12 @@
 angular
 	.module('dashboard.moviesComponent.module', [])
-	.controller('dashboard.movieComponent.controller', function () {
+	.controller('dashboard.movieComponent.controller', function ($state, stateService) {
 		var ctrl = this;
+
+		ctrl.chooseMovie = function (movie) {
+			stateService.setMovie(movie);
+			$state.go('dashboard.movieItem', { movieId: movie.id });
+		}
 	})
 	.component('movies', {
 			controller: 'dashboard.movieComponent.controller',
@@ -20,7 +25,7 @@ angular
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="movie in $ctrl.movies track by $index" ui-sref="dashboard.movieItem({ movieId: movie.id })">
+						<tr ng-repeat="movie in $ctrl.movies track by $index" ng-click="$ctrl.chooseMovie(movie)">
 							<th>{{ movie.title }}</th>
 							<th>{{ movie.is3D ? 'yes' : 'no' }}</th>
 							<th>{{ movie.type }}</th>

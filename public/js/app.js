@@ -21,7 +21,7 @@ angular
 		facebookInit().then(
 			function (response) {
 				console.log(response);
-				$state.go('dashboard.movieList');
+				$state.go('dashboard');
 			},
 			function (response) {
 				console.error(response);

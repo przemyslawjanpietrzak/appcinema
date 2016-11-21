@@ -1,16 +1,12 @@
 angular
 	.module('dashboard.movieItem', [])
 	.controller('dashboard.movieItem.controller', function ($scope, $http, $state, stateService) {
-		var movieId = $state.params.movieId;
-
-		$scope.movie = stateService.getMovie();
 		$scope.reducedTicketsCount = stateService.getReducedTicketsCount();
 		$scope.unreducedTicketsCount = stateService.getUnreducedTicketsCount();
 
 		$scope.submitTicketFrom = function (reducedTicketsCount, unreducedTicketsCount) {
 			if (reducedTicketsCount || unreducedTicketsCount) {
 				$scope.errorMessage = '';
-				stateService.setMovie(movieId);
 				stateService.setTicketsCount(reducedTicketsCount, unreducedTicketsCount);
 				$state.go('dashboard.cinemaPlan');
 			} else {

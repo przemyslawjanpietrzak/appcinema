@@ -1,6 +1,6 @@
 angular
 	.module('dashboard.movieList', [])
-	.controller('dashboard.movieList.controller', function ($scope, $http, _) {
+	.controller('dashboard.movieList.controller', function ($scope, $http, $state, _, stateService) {
 		var parseResponse = function (response) {
 			return _.map(response.data, function (projection) {
 				return {
@@ -31,6 +31,7 @@ angular
 		};
 
 		$scope.moviesTypes = ['', 'comedy', 'horror', 'drama', 'thriler', 'sci-fi']; // TODO get from settings
+
 
 	})
 	.config(function ($stateProvider) {

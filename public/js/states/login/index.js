@@ -3,8 +3,7 @@ angular
 	.factory('mySocket', function (socketFactory) {
 		return socketFactory();
 	})
-	.controller('login.controller', function (facebookService, stateService, $state) {
-		stateService.setUser(Math.random()); // TODO
+	.controller('login.controller', function (facebookService) {
 	})
 	.config(function ($stateProvider) {
 		$stateProvider

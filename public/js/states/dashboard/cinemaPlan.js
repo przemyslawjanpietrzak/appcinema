@@ -7,7 +7,7 @@ angular
 			var isPlaceTaken = _.find(takedPlaces, function (place) {
 				return String(place.col) === String(colIndex) && String(place.row) === String(rowIndex) && place.movieId === place.movieId;
 			});
-			var placeStatus = result.data.Places[rowIndex * rowsCount + colIndex].ProjectionPlace.status
+			var placeStatus = result.data.Places[rowIndex * rowsCount + colIndex].ProjectionPlace.status;
 
 			return isPlaceTaken ? 'boocked' : placeStatus;
 		};
@@ -45,7 +45,7 @@ angular
 		getCinemaPlan
 	) {
 		var selectedPlaces = [];
-		var movieId = stateService.getMovie();
+		var movieId = stateService.getMovie().id;
 		var user = stateService.getUser();
 
 		$scope.ticketLeftCount = stateService.getUnreducedTicketsCount() + stateService.getReducedTicketsCount();
@@ -70,7 +70,7 @@ angular
 
 		$scope.placeClickHandler = function (col, row) {
 			if ($scope.plan[col][row] === 'free') {
-				selectedPlaces.push({ row: row, col: col });
+				selectedPlaces.push({row: row, col: col});
 				$scope.plan[col][row] = 'taken';
 				$scope.ticketLeftCount--;
 				socketService.emitTakePlaceEvent(col, row, user, movieId);
@@ -81,7 +81,7 @@ angular
 			}
 		};
 
-		$scope.disabledButton = function(plan, col, row) {
+		$scope.disabledButton = function (plan, col, row) {
 			return $scope.plan[col][row] === 'boocked' || ($scope.ticketLeftCount === 0 && $scope.plan[col][row] === 'free')
 		};
 

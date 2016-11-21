@@ -14,11 +14,10 @@ angular
 		return socketFactory();
 	})
 	.controller('dashboard.controller', function ($state, facebookService, stateService) {
-		stateService.setUser(Math.random()); // TODO
-
 		facebookService.getMyLastName()
 			.then(function(response) {
-					stateService.setUser(response); // TODO
+					stateService.setUser(response);
+					$state.go('dashboard.movieList');
 				}, function () {
 					stateService.setUser(null);
 					$state.go('login');
